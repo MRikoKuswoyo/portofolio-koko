@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#06090b">
+<title>Muhammad Riko Kuswoyo — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Data konten + penanda "sedang loading" (dipasang sebelum halaman tampil) -->
+<script src="js/data/komentar.js"></script>
+<script src="js/data/data.js"></script>
+<script src="js/data/data-en.js"></script>
+<script src="js/inti/lang.js"></script>   <!-- bahasa ID/EN + tema terang/gelap (harus tepat setelah data.js) -->
+<script>try{if(!sessionStorage.getItem('pf-sw'))document.documentElement.classList.add('is-loading')}catch(e){document.documentElement.classList.add('is-loading')};setTimeout(function(){document.documentElement.classList.remove('is-loading')},15000)</script>
+<noscript><style>#loader{display:none}html.is-loading,html.is-loading body{overflow:auto}html.is-loading .hero-text>*,html.is-loading nav{opacity:1}</style></noscript>
+
+<!-- Urutan penting: library → foto kartu → konten → efek → latar → kartu 3D -->
+<script defer id="three-js" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" onerror="window.__threeFailed=true"></script>
+<script defer src="js/lib/qrcode.js"></script>
+<script defer src="js/lib/foto-kartu.js"></script>
+<script defer src="js/inti/detail.js"></script>
+<script defer src="js/inti/flip.js"></script>
+<script defer src="js/inti/script.js"></script>
+<script defer src="js/fitur/fitur.js"></script>
+<script defer src="js/fitur/bawah.js"></script>
+<script defer src="js/visual/efek.js"></script>
+<script defer src="js/visual/latar.js"></script>
+<script defer src="js/visual/kartu3d.js"></script>
+</head>
+
+<!-- =====================================================================
+     🧱  INDEX.HTML — KERANGKA HALAMAN
+     Hanya wadah. Semua isi diambil dari js/data/data.js.
+       ✏️ Ganti isi/teks   → js/data/data.js
+       🎨 Ganti warna/gaya → css/style.css
+       🖼️ Ganti foto kartu → assets/foto/foto.jpg (path di data.js → card.photo)
+       ⏳ Layar loading    → data.js → loader · logika di js/inti/loader.js
+     ===================================================================== -->
+<body>
+<!-- LAYAR LOADING — teks diatur di data.js → loader, logikanya di loader.js -->
+<div id="loader" role="status" aria-live="polite" aria-label="Memuat portofolio">
+  <div class="ld-wrap">
+    <h2 class="ld-name" id="ld-name"></h2>
+    <p class="ld-sub" id="ld-sub"></p>
+    <div class="ld-track" aria-hidden="true"><i class="ld-fill" id="ld-bar"></i></div>
+    <div class="ld-row"><span id="ld-status"></span><span id="ld-pct">0%</span></div>
+    <button id="ld-skip" type="button"></button>
+  </div>
+</div>
+<script src="js/inti/loader.js"></script>
+
+<div class="bg-glow" aria-hidden="true"></div>
+<canvas id="bg" aria-hidden="true"></canvas>
+<canvas id="card3d" aria-label="Kartu ID 3D, bisa ditarik ke mana saja"></canvas>
+
+<nav id="nav" aria-label="Navigasi"></nav>
+
+<main>
+  <!-- HOME -->
+  <section id="home" class="hero">
+    <div class="hero-text" id="hero-text"></div>
+    <div class="hero-card" id="hero-card"></div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <h2 id="about-heading"></h2>
+    <div class="about-hero" id="about-hero">
+      <div class="ah-left" id="about-intro"></div>
+      <div class="ah-stage" id="about-photo" aria-label="Foto profil"></div>
+      <div class="ah-right"><p class="about-text" id="about-text"></p><div class="ah-cta" id="about-cta"></div></div>
+    </div>
+    <div class="g2">
+      <div><h3 data-text="labels.education"></h3><div id="edu"></div></div>
+      <div><h3 data-text="labels.experience"></h3><div id="exp"></div></div>
+    </div>
+    <div class="g2">
+      <div><h3 data-text="labels.organization"></h3><div id="org"></div></div>
+      <div><h3 data-text="labels.capaian"></h3><div id="cap"></div></div>
+    </div>
+    <div id="skills" class="skills"></div>
+    <div class="g3" id="stats"></div>
+    <div class="card music" id="music"></div>
+  </section>
+
+  <!-- PORTFOLIO -->
+  <section id="portfolio">
+    <h2 id="portfolio-heading"></h2>
+    <div class="tabs" id="tabs" role="tablist"></div>
+    <div id="tab" class="g3"></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <h2 id="contact-heading"></h2>
+    <div class="cw">
+      <div class="card">
+        <h3 class="title" id="form-title"></h3>
+        <p id="form-text"></p>
+        <label for="n1" data-text="labels.contactName"></label><input id="n1" data-placeholder="labels.contactNamePh">
+        <label for="e1" data-text="labels.contactEmail"></label><input id="e1" type="email" data-placeholder="labels.contactEmailPh">
+        <label for="m1" data-text="labels.contactMsg"></label><textarea id="m1" data-placeholder="labels.contactMsgPh"></textarea>
+        <p style="margin-top:16px"><button class="btn full" id="sm"></button></p>
+        <div class="cinfo" id="cinfo"></div>
+        <h3 class="findme" id="findme"></h3>
+        <div id="contact-socials"></div>
+        <div id="contact-photo"></div>
+      </div>
+      <div class="card">
+        <h3 id="comments-title"></h3>
+        <label for="n2" data-text="labels.commentName"></label><input id="n2" data-placeholder="labels.commentNamePh">
+        <label for="m2" data-text="labels.commentText"></label><textarea id="m2" data-placeholder="labels.commentTextPh"></textarea>
+        <label for="p2" data-text="labels.commentPhoto"></label><input id="p2" type="file" accept="image/*">
+        <p class="hint" data-text="labels.commentPhotoHint"></p>
+        <p style="margin-top:14px"><button class="btn full" id="sc"></button></p>
+        <div class="cm" id="cm"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- BAWAH: peta + kontak + foto (klik = pemutar Spotify) — isi di bawah.js -->
+<section id="bawah" class="bawah" aria-label="Kontak dan lokasi"></section>
+
+<footer id="footer"></footer>
+<div id="toast" role="status"></div>
+
+</body>
+</html>

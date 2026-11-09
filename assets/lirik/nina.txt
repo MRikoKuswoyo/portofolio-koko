@@ -1,0 +1,3 @@
+# Tempel lirik lagu di bawah baris ini (satu baris per lirik). Baris yang diawali tanda # diabaikan.
+# Sudah ada timestamp? Pakai format LRC, contoh:  [00:12.50] teks lirik
+# Belum ada? Tempel biasa dulu, lalu buka halaman dengan ?sync (index.html?sync) dan "tap" saat lagu diputar untuk membuat timestamp-nya.
