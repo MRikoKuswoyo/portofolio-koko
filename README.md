@@ -7,7 +7,7 @@
 **Fresh Graduate S1 Sistem Informasi · Junior Developer**
 *Build · Learn · Ship*
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Buka_Portofolio-0ea5a4?style=for-the-badge)](https://portofolio-koko-seven.vercel.app)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Buka_Portofolio-0ea5a4?style=for-the-badge)](https://mrikokuswoyo.vercel.app/)
 [![GitHub](https://img.shields.io/badge/GitHub-MRikoKuswoyo-181717?style=for-the-badge&logo=github)](https://github.com/MRikoKuswoyo)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-mrikokuswoyo-0A66C2?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/mrikokuswoyo/)
 [![Instagram](https://img.shields.io/badge/Instagram-@mdrkksy-E4405F?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/mdrkksy)
