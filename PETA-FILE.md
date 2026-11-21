@@ -63,6 +63,7 @@ portofolio-koko/
 | Ganti lagu / lirik | `assets/lagu/` dan `assets/lirik/`, pengaturan di `js/fitur/bawah.js` |
 | Perilaku chat Tanya AI | `js/fitur/fitur.js` (endpoint di `data.js` → `ai`) |
 | Perilaku kartu 3D | `js/visual/kartu3d.js` |
+| Jumlah klik lilitan tali, kekenyalan, lepas otomatis | `js/visual/kartu3d.js`, blok "PENGATURAN LILITAN TALI": `MAX_KLIK`, `LILIT_PENDEK`, `LEPAS_OTOMATIS`, `PEGAS_C` |
 | Bug tab portfolio / lightbox / form kontak | `js/inti/script.js` |
 
 ## ➕ Cara menambah sertifikat baru

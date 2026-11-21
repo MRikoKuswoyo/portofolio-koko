@@ -520,7 +520,7 @@ const I18N_EN = {
  "Kirim Komentar": "Send Comment",
  "Membangun pengalaman web modern dengan presisi kode, tipografi tajam, dan dimensi 3D interaktif.": "Building modern web experiences with code precision, sharp typography, and interactive 3D.",
  "Kembali ke Atas": "Back to Top",
- "Klik kartu untuk membalik · tarik untuk mengayun": "Click the card to flip · drag to swing",
+ "Klik kartu berkali-kali untuk melilit tali · tarik untuk mengayun": "Click the card again and again to wind the strap · drag to swing",
  "Lewati": "Skip",
  "Menyiapkan komponen React": "Preparing React components",
  "Merender scene Three.js": "Rendering the Three.js scene",

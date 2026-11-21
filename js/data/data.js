@@ -577,7 +577,7 @@ const CONFIG = {
     backSubtitle: "CONNECT WITH ME",
     qrUrl: "",                           // link di QR; kosong = link sosmed pertama (socials[0])
     flipLabel: "",                       // teks tombol di bawah kartu (HP). Kosong = tombol dihapus; kartu tetap bisa diketuk untuk dibalik
-    hint: "Klik kartu untuk membalik · tarik untuk mengayun",   // kosong = tanpa petunjuk
+    hint: "Klik kartu berkali-kali untuk melilit tali · tarik untuk mengayun",   // kosong = tanpa petunjuk
     // Efek 3D
     sparkle: true,                       // kilau/kerlip di permukaan kartu
     particles: 110,                      // jumlah bulir cahaya melayang (0 = mati)

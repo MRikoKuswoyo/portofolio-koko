@@ -1,7 +1,8 @@
 /* =====================================================================
    🪪  KARTU3D.JS — KARTU ID 3D (tali elastis, kilau, QR di belakang)
    • Tarik kartu ke mana saja (melewati teks & tombol), tali meregang lalu
-     menyentak kembali · Klik kartu untuk membalik (tali ikut terpuntir)
+     menyentak kembali · Klik kartu = putar setengah putaran dan tali ikut terlilit
+     (sampai 10 klik; klik berikutnya melepas lilitan, tali berputar balik dengan lentur)
    • Teks, foto, QR, kecepatan & jumlah bulir → data.js → card
    Biasanya file ini tidak perlu diubah.
    ===================================================================== */
@@ -287,7 +288,7 @@
   }
 
   /* ---------- tali ---------- */
-  const SAMPLES = 40;
+  const SAMPLES = 160;   // makin besar = pilinan tali makin mulus (perlu ±24 untuk tiap putaran penuh)
   const strapGeo = new THREE.BufferGeometry();
   strapGeo.setAttribute('position', new THREE.BufferAttribute(new Float32Array((SAMPLES + 1) * 6), 3));
   strapGeo.setAttribute('uv', new THREE.BufferAttribute(new Float32Array((SAMPLES + 1) * 4), 2));
@@ -382,7 +383,12 @@
   let pts = [], cons = [], halfH = 3.5, halfW = 5, vw = 1, vh = 1, pxw = .01, anchorX = 0, anchorY = 5;
   let rotY = 0, rotVel = 0, t = 0, cardSpeed = 0, stretch = 1, lastVw = 0, lastVh = 0;
   let drag = false, dragOff = { x: 0, y: 0 }, dragTarget = { x: 0, y: 0 };
-  let flipped = false, flip = 0, flipVel = 0, hover = false, shineT = 0;
+  /* ---- PENGATURAN LILITAN TALI (ubah angka di sini) ---- */
+  const MAX_KLIK     = 10;        // jumlah klik maksimum; tiap klik = setengah putaran (10 klik = 5 putaran penuh)
+  const LILIT_PENDEK = .26;       // saat terlilit penuh tali memendek ±26% (kartu terangkat naik)
+  const LEPAS_OTOMATIS = 0;       // detik. 0 = tetap terlilit sampai klik ke-11 · isi mis. 6 = melepas sendiri setelah 6 detik tanpa klik
+  const PEGAS_K = 150, PEGAS_C = 8.5, PUTAR_MAX = 26;   // kekenyalan pegas putar · redaman (kecil = makin melenting) · batas kecepatan putar (rad/dtk)
+  let klik = 0, flip = 0, flipVel = 0, hover = false, shineT = 0, lilit = 0, restNow = REST_L, lastKlik = 0;
   const CARD = SEG + 1, GRAV = -20 * S * S;
   let SEGLEN = REST_L / SEG;
 
@@ -428,8 +434,13 @@
     const target = Math.max(-.8, Math.min(.8, vx * .1)) + Math.sin(t * .6 * S) * .22;
     rotVel += (target - rotY) * 38 * S * dt; rotVel *= .93; rotY += rotVel * dt * 4;
     rotY = Math.max(-1.1, Math.min(1.1, rotY));
-    const goal = flipped ? Math.PI : 0;                      // pegas membalik kartu
-    flipVel += ((goal - flip) * 140 - flipVel * 13) * dt; flip += flipVel * dt;
+    if (LEPAS_OTOMATIS > 0 && klik > 0 && t - lastKlik > LEPAS_OTOMATIS) { klik = 0; burst(); }   // melepas sendiri
+    const goal = klik * Math.PI;                             // tiap klik menambah setengah putaran
+    flipVel += ((goal - flip) * PEGAS_K - flipVel * PEGAS_C) * dt;      // pegas: melewati target sedikit lalu menyentak kembali (elastis)
+    flipVel = Math.max(-PUTAR_MAX, Math.min(PUTAR_MAX, flipVel)); flip += flipVel * dt;
+    lilit = Math.min(1, Math.abs(flip) / (MAX_KLIK * Math.PI));          // 0 = lurus · 1 = terlilit penuh
+    restNow = REST_L * (1 - LILIT_PENDEK * lilit);                       // tali terlilit memendek, kartu ikut terangkat
+    for (let i = 0; i < SEG; i++) cons[i][2] = restNow / SEG;
   }
 
   /* ---------- render ---------- */
@@ -449,13 +460,14 @@
     // tali: pita yang meregang (menipis) dan terpuntir mengikuti putaran kartu
     curveTmp.length = 0; let len = 0;
     for (let i = 0; i <= SEG; i++) { curveTmp.push(new THREE.Vector3(pts[i].x, pts[i].y, 0)); if (i) len += Math.hypot(pts[i].x - pts[i - 1].x, pts[i].y - pts[i - 1].y); }
-    stretch += (len / REST_L - stretch) * .25;
+    stretch += (len / restNow - stretch) * .25;
     const curve = new THREE.CatmullRomCurve3(curveTmp, false, 'catmullrom', .5);
     const pos = strapGeo.attributes.position.array, uv = strapGeo.attributes.uv.array, nm = strapGeo.attributes.normal.array;
-    const half = STRAP_W / 2 * Math.max(.5, Math.min(1.05, 1 / Math.sqrt(stretch / 1.15))), twistEnd = flip + rotY;
+    const half = STRAP_W / 2 * Math.max(.5, Math.min(1.05, 1 / Math.sqrt(stretch / 1.15))) * (1 - .14 * lilit), twistEnd = flip + rotY;
+    const s0 = .3 - .24 * lilit;                             // makin terlilit, pilinan mulai makin dekat ke pengait
     for (let i = 0; i <= SAMPLES; i++) {
       const s = i / SAMPLES, p = curve.getPoint(s), tg = curve.getTangent(s);
-      const tw = twistEnd * sm(Math.max(0, (s - .3) / .7)), cs = Math.cos(tw), sn = Math.sin(tw);
+      const tw = twistEnd * sm(Math.max(0, (s - s0) / (1 - s0))), cs = Math.cos(tw), sn = Math.sin(tw);
       const wx = -tg.y * cs, wy = tg.x * cs, wz = sn, o = i * 6, u = i * 4, v = 1 - s * (REST_L / TILE);
       pos[o] = p.x + wx * half; pos[o + 1] = p.y + wy * half; pos[o + 2] = wz * half;
       pos[o + 3] = p.x - wx * half; pos[o + 4] = p.y - wy * half; pos[o + 5] = -wz * half;
@@ -508,12 +520,15 @@
   flipBtn.addEventListener('click', () => flipCard());
   if (CFG.flipLabel) host.appendChild(flipBtn);   // flipLabel kosong = tanpa tombol (kartu tetap bisa diketuk untuk dibalik)
 
+  function burst() { const c = pts[CARD]; if (c) spawn(c.x, c.y, 60, 6); }   // ledakan bulir saat tali dilepas
   function flipCard() {
-    flipped = !flipped;
     if (hintEl) hintEl.classList.add('gone');
-    const c = pts[CARD]; spawn(c.x, c.y, 34, 4.2);
+    lastKlik = t;
+    const c = pts[CARD];
+    if (klik >= MAX_KLIK) { klik = 0; burst(); }             // sudah terlilit penuh → lepas, tali berputar balik
+    else { klik++; spawn(c.x, c.y, 24 + klik * 3, 3.6 + klik * .12); c.py = c.y - .03 * S; }   // + sedikit hentakan ke atas
     if (window.fxTick) window.fxTick();
-    if (still) { flip = flipped ? Math.PI : 0; render(); }
+    if (still) { flip = klik * Math.PI; render(); }
   }
 
   let down = null, suppress = false;
