@@ -23,6 +23,7 @@ const SRT = {
   hilo:         { title: "Juara 1 · Hilo Teen Creative Challenge", desc: "Juara 1 Hilo Teen Creative Challenge Design Thinking mewakili SMA Dharmawangsa Medan, 8 April 2021.", image: "assets/sertifikat/juara1-hilo-teen.webp", file: "assets/sertifikat/juara1-hilo-teen.png" },
   asc:          { title: "Panitia · Analyst Study Camp 2024", desc: "Panitia Analyst Study Camp 2024, Himpunan Mahasiswa Sistem Informasi Universitas Malikussaleh periode 2024 – 2025, Kabinet Cakrawala.", image: "assets/sertifikat/panitia-analyst-study-camp-2024.webp", file: "assets/sertifikat/panitia-analyst-study-camp-2024.pdf" },
   paragon:      { title: "Panitia · Superteam Academy x Paragon Campus Visit & Fun Talk", desc: "Sertifikat apresiasi sebagai panitia sosialisasi Career Preparation “Superteam Academy X Paragon Campus Visit & Fun Talk” oleh Superteam Academy, UPTBKK Universitas Malikussaleh, Lhokseumawe, 14 Oktober 2024.", image: "assets/sertifikat/panitia-paragon-campus-visit-2024.webp" },
+  kejarMimpiPr: { title: "Staff of Division Public Relations · Kejar Mimpi Lhokseumawe", desc: "Sertifikat No. 06/KM-LSM/X/2025 atas dedikasi dan kontribusi sebagai Staff of Division Public Relations 2024-2025 dalam Komunitas Kejar Mimpi Lhokseumawe (Kejar Mimpi by CIMB Niaga).", image: "assets/sertifikat/kejar-mimpi-staff-humas-2024-2025.webp", file: "assets/sertifikat/kejar-mimpi-staff-humas-2024-2025.png" },
   himasiHumas:  { title: "Anggota Bidang Hubungan Masyarakat · HIMASI Unimal", desc: "Sertifikat atas komitmen dan dedikasi selama satu periode sebagai Anggota Bidang Hubungan Masyarakat, Himpunan Mahasiswa Sistem Informasi Universitas Malikussaleh, Kabinet Rajut Aksara periode 2023 – 2024.", image: "assets/sertifikat/himasi-anggota-humas-rajut-aksara-2023-2024.webp" },
   pkkmbSi:      { title: "Mentor · PKKMB Sistem Informasi 2024", desc: "Sertifikat sebagai mentor kegiatan PKKMB Sistem Informasi 2024, Himpunan Mahasiswa Sistem Informasi Universitas Malikussaleh periode 2024 – 2025, Kabinet Cakrawala.", image: "assets/sertifikat/himasi-mentor-pkkmb-si-2024.webp" },
   transkrip:    { title: "Transkrip Nilai · Universitas Amikom Yogyakarta", desc: "Salinan nilai kumulatif PMM Batch 3: 7 mata kuliah, 20 SKS, semua nilai A, indeks prestasi 4,00 (30 Januari 2024).", image: "assets/sertifikat/transkrip-amikom-pmm3.webp", file: "assets/sertifikat/transkrip-amikom-pmm3.pdf" },
@@ -300,8 +301,10 @@ const CONFIG = {
           peran: [
             "Memimpin komunikasi dengan lebih dari tiga sponsor utama; mencakup negosiasi paket manfaat (benefit) dan pemenuhan kewajiban kontrak kerja sama",
             "Mengoordinasikan promosi lebih dari tiga acara lewat strategi multikanal (online dan offline); partisipasi peserta naik sekitar 30% dibanding acara sebelumnya",
-            "Menjadi penghubung utama panitia, peserta, dan pihak eksternal; menangani lebih dari lima puluh permintaan khusus (perubahan jadwal, akses, dukungan teknis, informasi sponsorship)"],
-          tags: ["Public Relation", "Sponsorship", "Negosiasi", "Promosi Multikanal", "Event"] } },
+            "Menjadi penghubung utama panitia, peserta, dan pihak eksternal; menangani lebih dari lima puluh permintaan khusus (perubahan jadwal, akses, dukungan teknis, informasi sponsorship)",
+            "Staff of Division Public Relations periode 2024-2025 di Komunitas Kejar Mimpi Lhokseumawe (Sertifikat No. 06/KM-LSM/X/2025)"],
+          tags: ["Public Relation", "Sponsorship", "Negosiasi", "Promosi Multikanal", "Event"],
+          sertifikat: ["kejarMimpiPr"] } },
       { slug: "hmsi-unimal", title: "Himpunan Mahasiswa Sistem Informasi", role: "Anggota Public Relation", meta: "Universitas Malikussaleh", tag: "PR", year: "",
         logo: "assets/logo/himasi.png", logoFull: "assets/logo/himasi-full.png", color: "#1f3fbf",
         desc: "Anggota Public Relation · Universitas Malikussaleh",
@@ -329,6 +332,7 @@ const CONFIG = {
       { title: "Ketua Umum Duta Ragam Nusantara Batch 2", year: "2025", cert: "ketuaDrn2" },
       { title: "Winner Putera Duta Ragam Nusantara Batch 2", year: "2025", cert: "winner" },
       { title: "Juri Program Duta Ragam Nusantara Batch 3", year: "2025", cert: "juri3" },
+      { title: "Staff of Division Public Relations Kejar Mimpi Lhokseumawe 2024-2025", year: "2025", cert: "kejarMimpiPr" },
       { title: "Pembawa Acara Perayaan Ulang Tahun Komunitas Kejar Mimpi Lhokseumawe", year: "2025", slug: "kejar-mimpi" },
       { title: "Mentor Superteam Academy UPTBKK Divisi Programmer Batch 8", year: "2025", cert: "mentor8" },
       { title: "Narasumber Head of Superteam Academy", year: "2025", slug: "superteam-academy" },
@@ -500,7 +504,7 @@ const CONFIG = {
     ],
 
     // Sertifikat: judul, deskripsi, gambar, dan file PDF diambil dari daftar SRT di atas.
-    certificates: rel("toeflIneo", "toeflCentral", "mentor8", "ketua7", "peserta7", "kpBkpsdm", "kepsukPmm", "pesertaPmm", "pemilihanDrn2"),
+    certificates: rel("toeflIneo", "toeflCentral", "mentor8", "ketua7", "peserta7", "kpBkpsdm", "kepsukPmm", "pesertaPmm", "pemilihanDrn2", "kejarMimpiPr"),
 
     achievements: [
       { title: "Skripsi: Analisis Sentimen Instagram Unimal", desc: "Analisis sentimen opini publik pada akun Instagram resmi Universitas Malikussaleh dengan Naive Bayes Classifier berbasis web: akurasi 77,55%, SUS 73,17 (2026).", image: "assets/flyer/skripsi-sentimen-unimal.png", url: "https://rama.unimal.ac.id/id/eprint/21933/", urlLabel: "Buka di Repositori Unimal" },
