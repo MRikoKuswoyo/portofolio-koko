@@ -397,7 +397,7 @@ $('#comments-title').innerHTML = `${esc(K.commentsTitle)} (<span id="cc">0</span
 $('#sc').textContent = K.commentLabel;
 
 /* ---------- Komentar: tersimpan permanen & tampil untuk semua pengunjung ----------
-   Jika supabaseUrl + supabaseKey di data.js terisi → disimpan di database Supabase (lihat supabase-komentar.sql).
+   Jika supabaseUrl + supabaseKey di data.js terisi → disimpan di database Supabase (lihat backend/supabase-komentar.sql).
    Jika kosong → disimpan di browser pengunjung (localStorage) supaya tidak hilang saat refresh. */
 const SB = (K.supabaseUrl && K.supabaseKey) ? { u: K.supabaseUrl.replace(/\/+$/, '') + '/rest/v1/comments', h: Object.assign({ apikey: K.supabaseKey, 'Content-Type': 'application/json' }, /^eyJ/.test(K.supabaseKey) ? { Authorization: 'Bearer ' + K.supabaseKey } : {}) } : null;   // key baru (sb_publishable_…) cukup lewat header apikey
 const LSK = 'pf-comments', LST = 'pf-comment-last';

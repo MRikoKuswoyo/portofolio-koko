@@ -1,7 +1,7 @@
 /* =====================================================================
    ✨ FITUR.JS — TOOLBAR: Tanya AI · ID/EN · Bantuan (?) · Tema (matahari/bulan)
    · Tanya AI: panel chat yang menjawab dari data portofolio (CONFIG di data.js), langsung jalan tanpa server.
-     Mau dijawab AI sungguhan? Isi CONFIG.ai.endpoint di data.js (lihat ai-worker.js + README-FITUR.txt).
+     Mau dijawab AI sungguhan? Isi CONFIG.ai.endpoint di data.js (lihat backend/ai-worker.js + PETA-FILE.md).
    · ID/EN: memanggil L.setLang() dari lang.js · Tema: L.toggleTheme()
    ===================================================================== */
 (function () {
